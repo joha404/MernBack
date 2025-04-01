@@ -10,23 +10,21 @@ const cors = require("cors");
 
 // ✅ Define Allowed Origins
 const allowedOrigins = [
+  "https://cyber-craft-frontend.vercel.app",
   "http://localhost:5173",
-  "http://localhost:5174",
-  "https://mern-ecommerce-admin-gules.vercel.app", // Admin frontend
-  "https://mern-ecommerce-front-pi.vercel.app", // Main frontend
+  "https://cyber-craft-frontend-hgvtaldqj-joha404s-projects.vercel.app/",
 ];
 
-// ✅ Use CORS Middleware
 app.use(
   cors({
     origin: (origin, callback) => {
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
-        callback(new Error("CORS not allowed"));
+        callback(new Error("Not allowed by CORS"));
       }
     },
-    credentials: true, // Allow cookies
+    credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
