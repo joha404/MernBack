@@ -9,28 +9,28 @@ const Order = require("./models/orderSchema"); // Ensure correct path
 
 const cors = require("cors");
 
-// ✅ Allowed Origins List
 const allowedOrigins = [
   "http://localhost:5173", // Local frontend
   "https://mern-ecommerce-admin-gules.vercel.app", // Admin frontend
   "https://mern-ecommerce-front-pi.vercel.app", // Main frontend
 ];
 
-// ✅ CORS Middleware with Proper Error Handling
+// Use CORS with proper headers
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
+      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true); // Allow request
       } else {
-        callback(new Error("CORS not allowed"), false);
+        callback(new Error("CORS not allowed"), false); // Block request
       }
     },
-    credentials: true,
+    credentials: true, // Allow cookies and authentication
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
 
 // ✅ Connect to Database
 DBConnect().catch((err) => {
