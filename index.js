@@ -22,6 +22,7 @@ app.use(
     credentials: true, // Allow cookies and authentication
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
+    optionsSuccessStatus:200,
   })
 );
 
