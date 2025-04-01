@@ -8,6 +8,16 @@ const {
   updateadmin,
   deleteadmin,
 } = require("../controllers/AdminController"); // Adjust path as necessary
+const cors = require("cors");
+
+adminRouter.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 // POST route to create a new user
 adminRouter.post("/create", CreateAdmin);

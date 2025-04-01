@@ -22,8 +22,7 @@ method=put
 delete user = http://localhost:3000/user/:userId
 method=delete
 
-
-create user = http://localhost:3000/signup
+create user = http://localhost:3000/create
 method = post
 
 login user = http://localhost:3000/login

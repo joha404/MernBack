@@ -5,10 +5,13 @@ const path = require("path");
 const fs = require("fs");
 require("dotenv").config();
 const DBConnect = require("./config/db");
+<<<<<<< HEAD
 const Order = require("./models/orderSchema"); // Ensure correct path
 
+=======
+const Order = require("./models/orderSchema"); // Ensure this is the correct path to your Order model
+>>>>>>> 55d27d5 (some file changes)
 const cors = require("cors");
-
 const allowedOrigins = [
   "http://localhost:5173", // Local frontend
   "https://mern-ecommerce-admin-gules.vercel.app", // Admin frontend
@@ -18,6 +21,7 @@ const allowedOrigins = [
 // Use CORS with more relaxed configuration (for testing)
 app.use(
   cors({
+<<<<<<< HEAD
     origin: "*", // Allow all origins for testing
     credentials: true, // Allow cookies and authentication
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
@@ -28,6 +32,25 @@ app.use(
 
 // Explicitly handle OPTIONS preflight requests
 app.options("*", cors());
+=======
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("CORS not allowed"));
+      }
+    },
+    credentials: true, // Allow cookies
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+
+// Ensure Express handles preflight requests
+app.options("*", cors());
+
+// Connect to the database
+>>>>>>> 55d27d5 (some file changes)
 
 // ✅ Connect to Database
 DBConnect().catch((err) => {
