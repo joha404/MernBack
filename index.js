@@ -31,6 +31,8 @@ app.use(
   })
 );
 
+// Explicitly handle OPTIONS preflight requests
+app.options("*", cors());
 
 // ✅ Connect to Database
 DBConnect().catch((err) => {
