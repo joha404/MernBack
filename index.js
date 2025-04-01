@@ -5,35 +5,21 @@ const path = require("path");
 const fs = require("fs");
 require("dotenv").config();
 const DBConnect = require("./config/db");
-<<<<<<< HEAD
 const Order = require("./models/orderSchema"); // Ensure correct path
-
-=======
-const Order = require("./models/orderSchema"); // Ensure this is the correct path to your Order model
->>>>>>> 55d27d5 (some file changes)
 const cors = require("cors");
+
+// ✅ Define Allowed Origins
 const allowedOrigins = [
-  "http://localhost:5173", // Local frontend
+  "http://localhost:5173",
+  "http://localhost:5174",
   "https://mern-ecommerce-admin-gules.vercel.app", // Admin frontend
   "https://mern-ecommerce-front-pi.vercel.app", // Main frontend
 ];
 
-// Use CORS with more relaxed configuration (for testing)
+// ✅ Use CORS Middleware
 app.use(
   cors({
-<<<<<<< HEAD
-    origin: "*", // Allow all origins for testing
-    credentials: true, // Allow cookies and authentication
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    optionsSuccessStatus:200,
-  })
-);
-
-// Explicitly handle OPTIONS preflight requests
-app.options("*", cors());
-=======
-    origin: function (origin, callback) {
+    origin: (origin, callback) => {
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
@@ -46,11 +32,8 @@ app.options("*", cors());
   })
 );
 
-// Ensure Express handles preflight requests
+// ✅ Handle Preflight Requests Explicitly
 app.options("*", cors());
-
-// Connect to the database
->>>>>>> 55d27d5 (some file changes)
 
 // ✅ Connect to Database
 DBConnect().catch((err) => {
@@ -102,7 +85,11 @@ app.post("/success/:tran_id", async (req, res) => {
     );
 
     if (updateResult.modifiedCount > 0) {
-      const successPagePath = path.join(__dirname, "public", "payment-success.html");
+      const successPagePath = path.join(
+        __dirname,
+        "public",
+        "payment-success.html"
+      );
 
       if (!fs.existsSync(successPagePath)) {
         return res.status(500).json({ message: "Success page missing" });
@@ -110,7 +97,9 @@ app.post("/success/:tran_id", async (req, res) => {
 
       fs.readFile(successPagePath, "utf-8", (err, data) => {
         if (err) {
-          return res.status(500).json({ message: "Error reading success page" });
+          return res
+            .status(500)
+            .json({ message: "Error reading success page" });
         }
         res.send(data);
       });
