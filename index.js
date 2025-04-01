@@ -15,16 +15,10 @@ const allowedOrigins = [
   "https://mern-ecommerce-front-pi.vercel.app", // Main frontend
 ];
 
-// Use CORS with proper headers
+// Use CORS with more relaxed configuration (for testing)
 app.use(
   cors({
-    origin: (origin, callback) => {
-      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-        callback(null, true); // Allow request
-      } else {
-        callback(new Error("CORS not allowed"), false); // Block request
-      }
-    },
+    origin: "*", // Allow all origins for testing
     credentials: true, // Allow cookies and authentication
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
