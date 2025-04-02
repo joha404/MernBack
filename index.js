@@ -7,31 +7,12 @@ require("dotenv").config();
 const DBConnect = require("./config/db");
 const Order = require("./models/orderSchema"); // Ensure correct path
 const cors = require("cors");
-
-// ✅ Define Allowed Origins
-const allowedOrigins = [
-  "https://cyber-craft-frontend.vercel.app",
-  "http://localhost:5173",
-  "https://cyber-craft-frontend-hgvtaldqj-joha404s-projects.vercel.app/",
-];
-
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
-
-// ✅ Handle Preflight Requests Explicitly
-app.options("*", cors());
+const corsOptions = {
+  origin: "http://localhost:5173",
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+};
+app.use(cors(corsOptions));
 
 // ✅ Connect to Database
 DBConnect().catch((err) => {
