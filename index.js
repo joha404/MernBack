@@ -47,7 +47,6 @@ app.use("/", require("./routes/messageRoute"));
 app.use("/checkout", require("./routes/checkoutRoute"));
 app.use("/complete", require("./routes/CompleteOrderRoute"));
 
-// ✅ Payment Success Route
 app.post("/success/:tran_id", async (req, res) => {
   const { tran_id } = req.params;
 
@@ -91,19 +90,16 @@ app.post("/success/:tran_id", async (req, res) => {
   }
 });
 
-// ✅ Payment Failure Route
 app.post("/fail", (req, res) => {
   console.log("Payment failed.");
   res.status(400).json({ message: "Payment failed" });
 });
 
-// ✅ Global Error Handler (Catches All Unhandled Errors)
 app.use((err, req, res, next) => {
   console.error("Unhandled Error:", err);
   res.status(500).json({ message: "Something went wrong", error: err.message });
 });
 
-// ✅ Start the Server
 app.listen(port, () => {
-  console.log(`🚀 Server Running on port ${port}`);
+  console.log(` Server Running on port ${port}`);
 });
