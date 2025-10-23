@@ -14,29 +14,23 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
-// ✅ Connect to Database
 DBConnect().catch((err) => {
   console.error("Database connection failed:", err);
   process.exit(1); // Stop the server if DB fails
 });
 
-// ✅ Middleware
 app.use(express.json()); // Replaces bodyParser.json()
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// ✅ Define Port
 const port = process.env.PORT || 5000;
 
-// ✅ Home Route
 app.get("/", (req, res) => {
   res.send("Home Page");
 });
 
-// ✅ Serve Static Files (Ensure Public Directory Exists)
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-// ✅ Import & Use Routes
 app.use("/", require("./routes/userRoute"));
 app.use("/admin", require("./routes/adminRoute"));
 app.use("/category", require("./routes/categoryRoute"));
